@@ -26,8 +26,9 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/656157992840/locations/global/workloadIdentityPools/github-actions-pool-for-sigma14/providers/github-provider-oidc-provider
+          workload_identity_provider: projects/656157992840/locations/global/workloadIdentityPools/github-actions-pool-for-sigma14/providers/github-provider
           service_account: cds-web-deploy@cds-web-484903.iam.gserviceaccount.com
+          audience: 'https://iam.googleapis.com/projects/656157992840/locations/global/workloadIdentityPools/github-actions-pool/providers/github-provider'
 
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
