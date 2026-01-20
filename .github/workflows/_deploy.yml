@@ -1,0 +1,74 @@
+name: Build & Multi-Stage Deploy
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  REGION: us-central1
+  IMAGE_NAME: nagem-ortho-app
+
+jobs:
+  # ------------------------------------------------------------
+  # BUILD (runs once, pushes image to DEV Artifact Registry)
+  # ------------------------------------------------------------
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image_uri: ${{ steps.build_image.outputs.image_uri }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to GCP (DEV – build source of truth)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/831691284866/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: cds-web-deploy@cds-web-484903.iam.gserviceaccount.com
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: nagem-orthopedics-dev
+          install_components: 'docker-credential-gcr'
+
+      - name: Build & Push Image
+        id: build_image
+        run: |
+          FULL_IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/nagem-orthopedics-dev/cloud-run-source-deploy/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+          docker build -t "$FULL_IMAGE_URI" .
+          docker push "$FULL_IMAGE_URI"
+          echo "image_uri=$FULL_IMAGE_URI" >> $GITHUB_OUTPUT
+
+  # ------------------------------------------------------------
+  # DEPLOY TO PROD
+  # ------------------------------------------------------------
+  deploy-prod:
+    needs: [build, deploy-test]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Authenticate to PROD
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SERVICE_ACCOUNT }}
+      - name: Deploy Prod
+        run: |
+          SERVICE="${{ vars.CLOUDRUN_SERVICE }}"
+          IMAGE="${{ needs.build.outputs.image_uri }}"
+          PROJECT="${{ vars.PROJECT_ID }}"
+          SERVICE_ACCOUNT="${{ vars.APP_SERVICE_ACCOUNT }}"
+          CLOUDSQL_INSTANCES="${{ vars.DB_INSTANCE }}"
+          gcloud run deploy "$SERVICE" \
+            --image "$IMAGE" \
+            --region $REGION \
+            --project "$PROJECT" \
+            --service-account "$SERVICE_ACCOUNT" \
+            --add-cloudsql-instances "$CLOUDSQL_INSTANCES" \
+            --no-allow-unauthenticated
