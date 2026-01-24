@@ -50,6 +50,12 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
+      - name: Debug GitHub vars
+        run: |
+            echo "SMTP_SERVER=${{ vars.SMTP_SERVER }}"
+            echo "SMTP_PORT=${{ vars.SMTP_PORT }}"
+            echo "SMTP_USER=${{ vars.SMTP_USER }}"
+            echo "CONTACT_RECEIVER=${{ vars.CONTACT_RECEIVER }}"
           gcloud run deploy ${{ env.SERVICE }} \
             --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }} \
             --region ${{ env.REGION }} \
