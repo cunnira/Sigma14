@@ -60,5 +60,3 @@ jobs:
                 SMTP_PORT=${{ vars.SMTP_PORT }},\
                 SMTP_USER=${{ vars.SMTP_USER }},\
                 CONTACT_RECEIVER=${{ vars.CONTACT_RECEIVER }} \
-            --update-secrets \
-                SMTP_PASSWORD=smtp-password:latest
