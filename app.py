@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory, abort
 import smtplib
 import os
 from email.message import EmailMessage
@@ -20,6 +20,22 @@ def home():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/products/loto")
+def loto_product():
+    return render_template("products/loto.html")
+
+@app.route("/products/patient-portal")
+def patient_portal():
+    return render_template("products/patient_portal.html")
+
+@app.route("/products/<path:filename>")
+def product_page(filename):
+    products_dir = os.path.join(app.root_path, "products")
+    file_path = os.path.join(products_dir, filename)
+    if os.path.isfile(file_path):
+        return send_from_directory(products_dir, filename)
+    return abort(404)
 
 @app.route("/contact", methods=["POST"])
 def contact():

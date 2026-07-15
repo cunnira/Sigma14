@@ -1,32 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>sigma14 | Quality-Driven Digital Systems</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <!-- Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+{% block title %}sigma14 | Quality-Driven Digital Systems{% endblock %}
 
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-
-<header class="hero">
-    <div class="container">
-
-        <!-- Minimal utility navigation -->
-        <div class="top-nav" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
-            <div class="brand-mark" style="font-weight:500; letter-spacing:0.05em;">
-                
-            </div>
-            <nav>
-                <a href="/about" style="color:#9ca3af; text-decoration:none; font-size:0.9rem;">
-                    About / Philosophy
-                </a>
-            </nav>
-        </div>
-
+{% block hero %}
         <h1>
             Digital systems designed<br>
             <span class="muted">the way high-quality organizations operate</span>
@@ -40,9 +16,9 @@
         <a href="#conversation" class="primary-cta">
             Start a quality-first conversation
         </a>
-    </div>
-</header>
+{% endblock %}
 
+{% block content %}
 <section class="principles">
     <div class="container">
         <h2>Principles before tools</h2>
@@ -136,17 +112,4 @@
         </form>
     </div>
 </section>
-
-<footer>
-    <div style="max-width:960px; margin:auto; text-align:center;">
-        <p style="margin-bottom:0.5rem;">
-            Designing digital systems with discipline, clarity, and continuous improvement at their core.
-        </p>
-        <p style="font-size:0.85rem; color:#6b7280;">
-            Powered by Cunningham Digital Solutions LLC
-        </p>
-    </div>
-</footer>
-
-</body>
-</html>
+{% endblock %}

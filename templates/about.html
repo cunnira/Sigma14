@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>About | Cunningham Digital Solutions</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <!-- Typography -->
-    <link href="https://googleapis.com" rel="stylesheet">
+{% block title %}About | Sigma14{% endblock %}
 
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-
-<header class="hero">
-    <div class="container">
+{% block hero %}
         <h1>
             About<br>
             <span class="muted">Decades of Experience in High-Stakes Systems, Applied to Modern Digital Challenges.</span>
         </h1>
-    </div>
-</header>
+{% endblock %}
 
+{% block content %}
 <section class="about">
     <div class="container">
         <p class="lead">
-            I spent over 20 years in the energy industry building, auditing, and optimizing systems where failure wasn't an option. 
+            I spent over 20 years in the energy industry building, auditing, and optimizing systems where failure wasn't an option.
         </p>
 
         <p>
@@ -53,12 +42,10 @@
         <div class="contact-info">
             <h3>Let’s connect:</h3>
             <p>
-			    📩 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Message me here on LinkedIn</a>
-			</p>
+                📩 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Message me here on LinkedIn</a>
+            </p>
             <p>🌐 Visit us at <a href="https://sigma14.com">sigma14.com</a></p>
         </div>
     </div>
 </section>
-
-</body>
-</html>
+{% endblock %}

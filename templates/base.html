@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Sigma14{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="container">
+    <div class="top-nav">
+      <div class="brand-mark" style="font-weight:500; letter-spacing:0.05em;">Sigma14</div>
+      <nav class="top-menu">
+        <a href="{{ url_for('home') }}">Home</a>
+        <div class="menu-item dropdown">
+          <button type="button">Our Products</button>
+          <div class="dropdown-content">
+            <a href="{{ url_for('loto_product') }}">SigmaShield Isolation</a>
+            <a href="{{ url_for('patient_portal') }}">SigmaCare Connect</a>
+          </div>
+        </div>
+        <a href="{{ url_for('about') }}">About / Philosophy</a>
+      </nav>
+    </div>
+    {% block hero %}{% endblock %}
+  </div>
+</header>
+<main class="page">
+  {% block content %}{% endblock %}
+</main>
+<footer>
+  <div class="container">
+    {% block footer %}
+    <p>© Cunningham Digital Solutions LLC | Trusted by operations and safety teams.</p>
+    <p>Contact: info@sigma14.com | Web: www.sigma14.com</p>
+    {% endblock %}
+  </div>
+</footer>
+</body>
+</html>

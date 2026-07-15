@@ -12,9 +12,71 @@ body {
     padding: 4rem 2rem;
 }
 
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
 .hero {
     background: #111827;
     color: #f9fafb;
+}
+
+.top-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.top-menu a,
+.top-menu button {
+    color: #9ca3af;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+.top-menu .dropdown {
+    position: relative;
+}
+
+.top-menu .dropdown button:hover,
+.top-menu a:hover {
+    color: #f9fafb;
+}
+
+.top-menu .dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    min-width: 220px;
+    z-index: 10;
+}
+
+.top-menu .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.top-menu .dropdown .dropdown-content a {
+    display: block;
+    padding: 0.9rem 1rem;
+    color: #f9fafb;
+    white-space: nowrap;
+}
+
+.top-menu .dropdown .dropdown-content a:hover {
+    background: rgba(255,255,255,0.08);
 }
 
 .hero h1 {
