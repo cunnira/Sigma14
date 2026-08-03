@@ -29,6 +29,12 @@ def loto_product():
 def patient_portal():
     return render_template("products/patient_portal.html")
 
+@app.route("/stories/sigmacare-connect/20260803-orthopedic-9-spreadsheets-one-platform")
+def story_sigmacare_20260803_orthopedic_9_spreadsheets():
+    return render_template(
+        "stories/sigmacare_connect/20260803_orthopedic_9_spreadsheets_one_platform.html"
+    )
+
 @app.route("/products/<path:filename>")
 def product_page(filename):
     products_dir = os.path.join(app.root_path, "products")
